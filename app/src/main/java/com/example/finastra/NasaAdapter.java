@@ -34,6 +34,12 @@ public class NasaAdapter extends RecyclerView.Adapter<NasaAdapter.NasaViewHolder
             return new NasaViewHolder(view);
         }
 
+    public void clear() {
+        int size = imageData.size();
+        imageData.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull NasaViewHolder holder, int position) {
         final ImageData imageDatas = imageData.get(position);

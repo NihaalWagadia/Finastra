@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isLoading = false;
     private boolean isLastPage = false;
     RecyclerView recyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
     LinearLayoutManager layoutManager;
     int currentPage = page_start;
     private final int totalPage = 100;
@@ -43,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
-        adapter = new NasaAdapter(getApplicationContext(), new ArrayList<ImageData>());
+        adapter = new NasaAdapter(getApplicationContext(), new ArrayList<>());
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout = findViewById(R.id.swiper);
         //to make use of infinite scrolling. per page will have 25 images
         recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
@@ -69,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         loadData(currentPage);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear();
+                currentPage += 1;
+                loadData(currentPage);
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     private void loadData(int currentPage) {
