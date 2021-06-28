@@ -1,4 +1,4 @@
-package com.example.finastra;
+package com.example.finastra.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finastra.R;
 import com.example.finastra.helper.ImageData;
 import com.squareup.picasso.Picasso;
 

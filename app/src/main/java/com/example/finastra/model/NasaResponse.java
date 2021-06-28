@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-//https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=U68MmEqPVMxFLx915ugGSMSYBLQT6Dpc27ap446C
 public class NasaResponse {
 
     @SerializedName("latest_photos")

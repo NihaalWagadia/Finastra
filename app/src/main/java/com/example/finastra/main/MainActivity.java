@@ -1,4 +1,4 @@
-package com.example.finastra;
+package com.example.finastra.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -9,9 +9,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
+import com.example.finastra.adapter.NasaAdapter;
+import com.example.finastra.R;
 import com.example.finastra.apicall.NasaApiCall;
 import com.example.finastra.helper.ImageData;
 import com.example.finastra.helper.PaginationScrollListener;
@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                final NasaApiCall yinzCamApi = retrofit.create(NasaApiCall.class);
-                Call<NasaResponse> call = yinzCamApi.getScheduleJson(finalCurrent, 25);
+                final NasaApiCall nasaApiCall = retrofit.create(NasaApiCall.class);
+                Call<NasaResponse> call = nasaApiCall.getScheduleJson(finalCurrent, 25);
                 call.enqueue(new Callback<NasaResponse>() {
                     @Override
                     public void onResponse(Call<NasaResponse> call, Response<NasaResponse> response) {
